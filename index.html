@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The White Chapter</title>
+  <style>
+    /* Γενικό reset και στυλ */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #faf9f8;
+      color: #4b4b4b;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    header {
+      background: #fff;
+      width: 100%;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 20px 0;
+      text-align: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+    header h1 {
+      margin: 0 0 10px;
+      font-family: 'Georgia', serif;
+      font-weight: 700;
+      font-size: 2.8rem;
+      color: #5d5d5d;
+      letter-spacing: 3px;
+      user-select: none;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+    nav button {
+      background: #f0e9e9;
+      border: 2px solid #e5dcdc;
+      border-radius: 25px;
+      padding: 10px 18px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: #6a5a5a;
+      box-shadow: 1px 1px 3px #d6c6c6;
+      transition: background 0.3s ease, color 0.3s ease;
+      user-select: none;
+      min-width: 110px;
+      text-align: center;
+    }
+    nav button:hover,
+    nav button.active {
+      background: #d6c0c0;
+      color: #fff;
+      border-color: #bc9b9b;
+      box-shadow: 2px 2px 5px #a98f8f;
+    }
+
+    main#content {
+      max-width: 900px;
+      width: 90%;
+      margin: 30px auto 60px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      padding: 30px 40px;
+    }
+
+    .category-title {
+      font-family: 'Georgia', serif;
+      font-size: 2.4rem;
+      margin-bottom: 25px;
+      color: #8a6f6f;
+      letter-spacing: 2px;
+      text-align: center;
+      user-select: none;
+    }
+
+    .cards-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 20px;
+    }
+    .card {
+      background: #faf3f3;
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 1px 1px 10px #e1cfcf;
+      cursor: pointer;
+      transition: transform 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      user-select: none;
+    }
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 3px 3px 14px #d3baba;
+    }
+    .card h3 {
+      margin: 0 0 15px;
+      font-family: 'Georgia', serif;
+      color: #725050;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: #6a5757;
+      line-height: 1.4;
+      flex-grow: 1;
+    }
+    .card .read-more {
+      margin-top: 15px;
+      text-align: right;
+      font-weight: 600;
+      color: #a87777;
+      font-style: italic;
+      user-select: none;
+    }
+
+    /* Άρθρο πλήρους κειμένου */
+    #full-article {
+      margin-top: 25px;
+      background: #fef9f9;
+      border-radius: 12px;
+      padding: 25px 30px;
+      box-shadow: inset 0 0 15px #f1dede;
+      color: #664747;
+      font-size: 1.1rem;
+      line-height: 1.75;
+      font-family: 'Trebuchet MS', sans-serif;
+      white-space: pre-line;
+      user-select: text;
+      max-height: 600px;
+      overflow-y: auto;
+    }
+
+    /* Responsive adjustments */
+    @media(max-width: 600px) {
+      nav button {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+        min-width: 90px;
+      }
+      main#content {
+        padding: 20px 15px;
+      }
+    }
+
+    /* Σχετικά με εμένα */
+    #about-section {
+      text-align: center;
+      font-size: 1.1rem;
+      color: #5a4c4c;
+      user-select: text;
+    }
+    #about-section img {
+      width: 150px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      box-shadow: 0 0 10px #d8c7c7;
+    }
+    #about-section a.email-link {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #e8d8d8;
+      border-radius: 30px;
+      text-decoration: none;
+      color: #6e5757;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+    #about-section a.email-link:hover {
+      background: #c6b3b3;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>The White Chapter ✨</h1>
+  <nav>
+    <button class="nav-btn active" onclick="showCategory('beauty')">Beauty 💄</button>
+    <button class="nav-btn" onclick="showCategory('fashion')">Fashion 👗</button>
+    <button class="nav-btn" onclick="showCategory('skincare')">Skincare 🌸</button>
+    <button class="nav-btn" onclick="showCategory('school')">Σχολείο 📚</button>
+    <button class="nav-btn" onclick="showCategory('friends')">Φίλες 💕</button>
+    <button class="nav-btn" onclick="showCategory('perfumes')">Αρώματα 🌹</button>
+    <button class="nav-btn" onclick="showCategory('style')">Στυλ ✨</button>
+    <button class="nav-btn" onclick="showCategory('selfcare')">Αυτοφροντίδα 🧖‍♀️</button>
+    <button class="nav-btn" onclick="showCategory('about')">Σχετικά με εμένα ✉️</button>
+  </nav>
+</header>
+
+<main id="content">
+  <!-- Το περιεχόμενο φορτώνει εδώ -->
+</main>
+
+<script>
+  // Δεδομένα με άρθρα ανά κατηγορία
+  const siteData = {
+    beauty: {
+      title: "Beauty 💄",
+      articles: [
+        {
+          title: "5 Μυστικά για Λαμπερό Μακιγιάζ ✨",
+          text: `Hey girls! Θέλετε να λάμπετε κάθε μέρα σαν σταρ; 🌟 Εδώ σας έχω 5 απλά αλλά μαγικά μυστικά που θα κάνουν το μακιγιάζ σας να δείχνει επαγγελματικό και φρέσκο. Πρώτον, ενυδάτωση! Η βάση είναι όλα, οπότε φροντίστε να ενυδατώνετε το πρόσωπό σας καλά πριν το μακιγιάζ. Δεύτερον, χρησιμοποιήστε primer για να κρατήσει το μακιγιάζ περισσότερο. Τρίτον, επιλέξτε προϊόντα που ταιριάζουν στο δέρμα σας και το χρώμα σας, και τέταρτον, μην ξεχνάτε να σβήνετε καλά όλες τις γραμμές. Τέλος, ένα καλό setting spray θα κλειδώσει το look σας για ώρες! 💕 Μην ξεχνάτε πως το πιο όμορφο μακιγιάζ είναι αυτό που σε κάνει να νιώθεις άνετα και σίγουρη!`
+        },
+        {
+          title: "Πώς να Διαλέξεις το Κατάλληλο Κόκκινο Κραγιόν 💋",
+          text: `Ένα κόκκινο κραγιόν μπορεί να απογειώσει την εμφάνισή σου και να σου δώσει αυτοπεποίθηση! 💄 Όμως η επιλογή του σωστού κόκκινου δεν είναι πάντα εύκολη. Για να βρεις το τέλειο κόκκινο, πρέπει να λάβεις υπόψη τον τόνο του δέρματος σου. Αν έχεις ψυχρό τόνο, προτίμησε κόκκινα με μπλε υποτόνους. Αν έχεις θερμό τόνο, τα πορτοκαλί-κόκκινα είναι η καλύτερη επιλογή. Μην φοβάσαι να πειραματιστείς, και θυμήσου, το κόκκινο κραγιόν είναι το απόλυτο statement! 👄✨`
+        },
+        {
+          title
